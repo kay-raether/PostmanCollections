@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "7052d787-c07c-49e1-b5a5-710983b35c15",
+		"name": "Hired/Non Owned Auto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HNOA Rates and Forms",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Rates successfully.\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.isSuccess).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"Form generated\", function () {",
+							"    pm.expect(pm.response.text()).include(pm.iterationData.get(\"form\"));",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"applicationExternalId\": \"em-auto-testing\",\n    \"carrier\": \"Benchmark\",\n    \"raterName\": \"Bop2BopGl\",\n    \"raterVersion\": \"1\",\n    \"state\": \"{{state}}\",\n    \"ratingVariables\": {\n        \"coterieId\": \"10077\",\n        \"zipCode\": \"{{zipcode}}\",\n        \"optTerrorSelected\": \"true\",\n        \"limitLiabAgg\": \"600\",\n        \"limitLiabOcc\": \"300\",\n        \"propDamageLiabDedAmt\": \"500\",\n        \"propDamageLiabDedType\": \"PerClaim\",\n        \"premierPlatformDiscountRequested\": \"False\",\n        \"sprinklered\": \"False\",\n        \"propEnhanceType\": \"None\",\n        \"grossAnnualSales\": \"500000.0000\",\n        \"annualPayroll\": \"250000.0000\",\n        \"bppLimit\": \"100000.0000\",\n        \"bldgLimit\": \"0.0000\",\n        \"propertyDeductible\": \"500\",\n        \"windstormDirectDamageExclusionSelected\": \"false\",\n        \"windHailDeductible\": \"Incl\",\n        \"windstormOrHailExclusion\": \"false\",\n        \"groundCoverageExclusionChosen\": \"false\",\n        \"windstormMitigationDiscountApplies\": \"false\",\n        \"optLimitationCovToDesigPremProjOp\": \"false\",\n        \"optFreelancePolicy\": \"false\",\n        \"optProjectPolicy\": \"false\",\n        \"optUnmannedAircraftCov\": \"false\",\n        \"hazardHubCode\": \"4\",\n        \"hhConstructionType\": \"HEAVY\",\n        \"hhBuildingClass\": \"D\",\n        \"hhRoofType\": \"STEEL FRAME/TRUSS\",\n        \"fipsCode\": \"120879710023\",\n        \"policyTermLength\": \"1\",\n        \"policyTermType\": \"annual\",\n        \"cglClassCode\": \"41677\",\n        \"bopClassCode\": \"65231\",\n        \"numEmployees\": \"5\",\n        \"hiredAutoEndorsement\": \"true\",\n        \"autoLiabHiredType\": \"hiredAutoLiability\",\n        \"nonOwnedAutoEndorsement\": \"true\",\n        \"autoLiabNonOwnedType\": \"nonOwnedAutoLiabilityWithoutDeliveryService\",\n        \"limitAutoLiabOcc\": \"1000000\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{baseRatingEngineApiUrl}}/api/v1/rate",
+					"protocol": "https",
+					"host": [
+						"{{baseRatingEngineApiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"rate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adil - HNOA - Hired",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"applicationTypes\": [\"BOP\"],\n    \"annualPayroll\": 250000,\n    \"grossAnnualSales\": 500000,\n    \"glLimit\": 350000,\n    \"glAggregateLimit\": 150000,\n    \"glAggregatePcoLimit\": 600000,\n    \"bppDeductible\": 500,\n    \"policyStartDate\": \"2021-05-04\",\n    \"policyEndDate\": \"2022-05-05\",\n    \"zip\": \"32886\",\n    \"numEmployees\": 5,\n    \"industryId\": 10077,\n    \"aKHash\": \"babb175c507e13296c1435dd4d77599b\",\n    \"bopClassCode\": 9431,\n    \"cglCassCode\": 16910,\n    \"businessName\": \"New Company\",\n    \"contactFirstName\": \"FirstName\",\n    \"contactLastName\": \"LastName\",\n    \"contactEmail\": \"name@email.com\",\n    \"mailingAddressStreet\": \"1234 Main St\",\n    \"mailingAddressCity\": \"Orlando\",\n    \"mailingAddressState\": \"FL\",\n    \"mailingAddressZip\": \"32886\",\n    \"endorsements\": {\n        \"hiredAutoAndNonOwnedAuto\": {\n            \"hiredAutoEndorsement\": \"true\",\n            \"autoLiabHiredType\": \"hiredAutoLiability\",\n            \"nonOwnedAutoEndorsement\": \"false\",        \n            \"autoLiabNonOwnedType\":\"nonOwnedAutoLiabilityWithoutDeliveryService\",  \n            \"limitAutoLiabOcc\": \"350000\"\n        }\n    },\n    \"locations\": [\n        {\n            \"street\": \"1234 Main St\",\n            \"city\": \"Orlando\",\n            \"state\": \"FL\",\n            \"zip\": \"32886\",\n            \"bppLimit\": 100000,\n            \"bplimit\" : 150000\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api-test.coterieinsurance.com/v1/commercial/applications",
+					"protocol": "https",
+					"host": [
+						"api-test",
+						"coterieinsurance",
+						"com"
+					],
+					"path": [
+						"v1",
+						"commercial",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adil - HNOA - Non Owned",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"applicationTypes\": [\"BOP\"],\n    \"annualPayroll\": 250000,\n    \"grossAnnualSales\": 500000,\n    \"glLimit\": 350000,\n    \"glAggregateLimit\": 600000,\n    \"glAggregatePcoLimit\": 600000,\n    \"bppDeductible\": 500,\n    \"policyStartDate\": \"2021-05-04\",\n    \"policyEndDate\": \"2022-05-05\",\n    \"zip\": \"32886\",\n    \"numEmployees\": 5,\n    \"industryId\": 10077,\n    \"aKHash\": \"babb175c507e13296c1435dd4d77599b\",\n    \"bopClassCode\": 9431,\n    \"cglCassCode\": 16910,\n    \"businessName\": \"New Company\",\n    \"contactFirstName\": \"FirstName\",\n    \"contactLastName\": \"LastName\",\n    \"contactEmail\": \"name@email.com\",\n    \"mailingAddressStreet\": \"1234 Main St\",\n    \"mailingAddressCity\": \"Orlando\",\n    \"mailingAddressState\": \"FL\",\n    \"mailingAddressZip\": \"32886\",\n    \"endorsements\": {\n        \"hiredAutoAndNonOwnedAuto\": {\n            \"hiredAutoEndorsement\": \"false\",\n            \"autoLiabHiredType\": \"hiredAutoLiability\",\n            \"nonOwnedAutoEndorsement\": \"true\",        \n            \"autoLiabNonOwnedType\":\"nonOwnedAutoLiabilityWithoutDeliveryService\",  \n            \"limitAutoLiabOcc\": \"350000\"\n        }\n    },\n    \"locations\": [\n        {\n            \"street\": \"1234 Main St\",\n            \"city\": \"Orlando\",\n            \"state\": \"FL\",\n            \"zip\": \"32886\",\n            \"bppLimit\": 100000,\n            \"bplimit\" : 150000\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api-test.coterieinsurance.com/v1/commercial/applications",
+					"protocol": "https",
+					"host": [
+						"api-test",
+						"coterieinsurance",
+						"com"
+					],
+					"path": [
+						"v1",
+						"commercial",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adil - HNOA - Both",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"applicationTypes\": [\"BOP\"],\n    \"annualPayroll\": 250000,\n    \"grossAnnualSales\": 500000,\n    \"glLimit\": 350000,\n    \"glAggregateLimit\": 600000,\n    \"glAggregatePcoLimit\": 600000,\n    \"bppDeductible\": 500,\n    \"policyStartDate\": \"2021-05-04\",\n    \"policyEndDate\": \"2022-05-05\",\n    \"zip\": \"32886\",\n    \"numEmployees\": 5,\n    \"industryId\": 10077,\n    \"aKHash\": \"babb175c507e13296c1435dd4d77599b\",\n    \"bopClassCode\": 9431,\n    \"cglCassCode\": 16910,\n    \"businessName\": \"New Company\",\n    \"contactFirstName\": \"FirstName\",\n    \"contactLastName\": \"LastName\",\n    \"contactEmail\": \"name@email.com\",\n    \"mailingAddressStreet\": \"1234 Main St\",\n    \"mailingAddressCity\": \"Orlando\",\n    \"mailingAddressState\": \"FL\",\n    \"mailingAddressZip\": \"32886\",\n    \"endorsements\": {\n        \"hiredAutoAndNonOwnedAuto\": {\n            \"hiredAutoEndorsement\": \"true\",\n            \"autoLiabHiredType\": \"hiredAutoLiability\",\n            \"nonOwnedAutoEndorsement\": \"true\",        \n            \"autoLiabNonOwnedType\":\"nonOwnedAutoLiabilityWithoutDeliveryService\",  \n            \"limitAutoLiabOcc\": \"350000\"\n        }\n    },\n    \"locations\": [\n        {\n            \"street\": \"1234 Main St\",\n            \"city\": \"Orlando\",\n            \"state\": \"FL\",\n            \"zip\": \"32886\",\n            \"bppLimit\": 100000,\n            \"bplimit\" : 150000\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api-test.coterieinsurance.com/v1/commercial/applications",
+					"protocol": "https",
+					"host": [
+						"api-test",
+						"coterieinsurance",
+						"com"
+					],
+					"path": [
+						"v1",
+						"commercial",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "token 673CD2A8-8BF5-4D16-B1BA-523320D6E47C",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
