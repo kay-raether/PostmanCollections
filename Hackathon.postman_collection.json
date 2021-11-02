@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "d5084aab-6d2a-447b-acce-8133d1e1b6e0",
+		"name": "Hackathon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test Folder",
+			"item": [
+				{
+					"name": "AK Hash - BOP 2.0 Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"In BOP 2.0 Appetite = YES\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.isSuccess).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"Status code is 200 - OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Rating Engine is BOP 2.0\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"BOP 2.0\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 673CD2A8-8BF5-4D16-B1BA-523320D6E47C"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"applicationTypes\": [\"BOP\" ], //BOP,GL,PL\n\n \n\n    \"annualPayroll\": 150000, // Minimum of 1000,\n    \"grossAnnualSales\": 150000, // Minimum of 1000, Max of 10Mil\n\n \n\n    \n    \"glLimit\": 1000000, // 300k,500k,1Mil\n    \"propertyDamageLiabilityDeductible\": 500, // 250, 500, 1000,2500\n    \"bppDeductible\": 1000, // 500, 1000, 2500, 5000, 7500, 10000\n\n \n\n    \"industryId\": 10536,\n    // Accounting: 10004\n    // Contractor: 10536\n    // Restaurant: 10077\n    \"akHash\": \"{{AK Hash}}\",\n    //\"001852a993b8ca3c4ee43b7b514f544f\", \n    //eligible as of 8/9/2021 \n    //\"001852a993b8ca3c4ee43b7b514f544f\",\"00504aebe3b5c791d2860572d4092b81\",\"019e15f06616f1c2d796d167d09903ec\", \"011fa691f49417afbafb77eec412dd61\"\n    // Accounting: \"4b852ac4e94fadc894b23cbb02b01cdc\"\n    // Contractor: \"b977fc92dc7b5436e7a79c5df4f7d9f9\"\n    // Restaurant: \"babb175c507e13296c1435dd4d77599b\"\n\n \n\n    \"businessName\": \"Emble the Contractor\",\n    \"contactFirstName\": \"Emble\",\n    \"contactLastName\": \"Lee\",\n    \"contactEmail\": \"emble.lee@gmail.com\",\n    \"contactPhone\": \"5134707135\",\n\n \n\n    \"mailingAddressStreet\": \"1048 cloverfield ln\",\n    \"mailingAddressCity\": \"Cincinnati\",\n    \"mailingAddressState\": \"OH\",\n    \"mailingAddressZip\": \"45224\",\n\n \n\n    \"numEmployees\": 51, // Maximum of 50\n    \"businessAgeInMonths\": 12,\n    \"previousLosses\": [],\n    \n    \"locations\": [\n        {\n            \"street\": \"a;sdlkfjas;ldk\",\n            \"city\": \"Indianapolis\",\n            \"state\": \"CA\",\n            \"zip\": \"90210\",\n            \"hasSprinklers\": true, // true, false\n            \"bppLimit\" : 150000,// max of 500k\n            \"buildingLimit\" : 150000,// max of 1Mil\n            \"locationType\": \"BuildingOwned\" // buildingOwned,buildingLeased\n        }\n    ],\n\n \n\n    \"endorsements\":{        \n        \n        }}"
+						},
+						"url": {
+							"raw": "https://dev1-coterie-api-east-app-service.azurewebsites.net/v1/commercial/quotes",
+							"protocol": "https",
+							"host": [
+								"dev1-coterie-api-east-app-service",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"commercial",
+								"quotes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
